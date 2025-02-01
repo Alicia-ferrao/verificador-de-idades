@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Idade</title>
+    <style>
+        body {
+            background-color: rgb(83, 83, 235);
+            font: normal 15pt Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        footer {
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: block;
+            margin: 20px auto;
+        }
+        #txtano{
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;           
+            box-sizing: border-box;
+        }
+        #masc, #fem{
+            margin-right: 5px;
+        }
+
+        label {
+            margin-right: 15px;
+            color: #333;
+        }
+
+        #button {
+            background-color: #5363eb;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        #button:hover{
+            background-color:  #5362ebe1;
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Verificador de Idade</h1>
+    </header>
+    <section>
+        <div>
+            <p>Ano de nascimento:</p>
+            <input type="number"  id="txtano"  placeholder="Ex: 2000">
+            <p>Sexo:</p>
+            <input type="radio" name="radsex" id="masc"   checked>
+            <label for="masc">Masculino</label>
+            <input type="radio" name="radsex" id="fem">
+            <label for="fem">Feminino</label>
+            <p>
+                <input id="button" type="button" value="Verificar" onclick="verificar()">
+            </p>
+        </div>
+        <div id="res">
+            Preencha os seus dados acima para ver o resultado.
+        </div>
+        <div>
+            <img src="verificar.png" alt="" id="imagem">
+        </div>
+    </section>
+    <footer>
+        <p>Aula Programação</p>
+    </footer>
+    <script>
+        function verificar() {
+        
+            const anoAtual = 2025
+            const anoNascimento = document.getElementById('txtano').value;
+            const resultado = document.getElementById('res');
+            const generoRadio = document.getElementsByName('radsex');
+            
+            const img = document.getElementById('imagem')
+
+          
+
+            const idade = anoAtual - anoNascimento;
+            let genero = '';
+            let imagem = '';
+
+            if (generoRadio[0].checked) {
+            
+                if (idade < 10) {
+                    genero = 'crianca';
+                    imagem = 'crianca-masc.jpg';
+                } else if (idade < 21) {
+                    imagem = 'jovem-masc.jpg';
+                    genero = 'Jovem';
+                } else if (idade < 50) {
+                    imagem = 'adulto-masc.jpg';
+                    genero = 'Adulto';
+                } 
+                
+                
+                else {
+                    imagem = 'idoso-masc.jpg';
+                    genero = 'idoso';
+                }
+            } else if (generoRadio[1].checked) {
+                genero = 'Mulher';
+                if (idade < 10) {
+                    imagem = 'crianca-fem.jpg';
+                } else if (idade < 21) {
+                    imagem = 'jovem-fem.jpg';
+                } else if (idade < 50) {
+                    imagem = 'adulta-fem.jpg';
+                }
+                
+                else {
+                    imagem = 'idosa-fem.jpg';
+                }
+            }
+
+            resultado.style.textAlign = 'center';
+            resultado.innerHTML = `Detectámos ${genero} com ${idade} anos.`;
+            img.src = imagem;
+            img.alt = `${genero} com ${idade} anos`;
+           
+        }
+    </script>
+</body>
+</html>
